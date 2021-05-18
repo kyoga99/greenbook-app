@@ -11,7 +11,7 @@ function Page(props) {
 
     const [{ view, isWeb, dimensions }, dispatch] = useStateValue();
     const styles = StyleSheet.create(
-      getStyles("text_header2, text_header3, section, content", {
+      getStyles("text_header2, text_header3, text_header4, section, content", {
         isWeb,
       })
     );
@@ -54,20 +54,37 @@ function Page(props) {
             </View>
         : (
             <React.Fragment>
-                <PageTitle title={content.page_title} />
-                <View style={[styles.section, {paddingBottom: isWeb ? 0 : 80}]}>
-                    <View style={styles.content}>
-                        <RichText render={content._body} isWeb={isWeb} />
-                        {!isWeb && <Link style={{marginTop: 40}} href={'https://spicygreenbook.org/contact'} button={'button_green'} title="Go To Contact Form" />}
-                    </View>
-                </View>
-                {isWeb && <View style={[styles.section]}>
-                    <View style={styles.content}>
-                        <Text style={styles.text_header3}>Contact Form</Text>
-                        <div className="hb-p-5f0282b0a1f62a61eedd0881-2" style={{display: 'inline-block', maxWidth: '100%', minWidth: 600, boxSizing: 'border-box'}}/>
-                        <img height="1" width="1" style={{display:'none'}} src="https://www.honeybook.com/p.png?pid=5f0282b0a1f62a61eedd0881" />
-                    </View>
-                </View>}
+                <PageTitle title={content.page_title} style={{margin:'auto'}}/>
+                    <div style={{display:'flex', flexFlow:'row wrap'}}>
+                        <div style={{width:'50%', minWidth:280, margin:'0 auto'}}>
+                            <div style={{display:'flex', flexDirection:'column', alignItems:'flex-end'}}>
+                                <h2 style={{color:'rgb(0, 98, 51)', fontWeight:'bold', fontFamily: 'KnockoutFeatherWeight', marginBottom:0}}>QUESTIONS ABOUT PHOTOGRAPHY?</h2>
+                                <p style={{margin:'2px 0', fontFamily: 'KnockoutFeatherWeight', fontSize:22}}>photography@spicygreenbook.com</p>
+                                <h2 style={{color:'rgb(0, 98, 51)', fontWeight:'bold', fontFamily: 'KnockoutFeatherWeight', marginBottom:0}}>FIND AN ISSUE WITH THE WEBSITE?</h2>
+                                <p style={{margin:'2px 0', fontFamily: 'KnockoutFeatherWeight', fontSize:22}}>Open a new issue / bug report on our github page:</p>
+                                <p style={{margin:'2px 0', fontFamily: 'KnockoutFeatherWeight', fontSize:22}}>https://github.com/spicygreenbook-app</p>
+                                <h2 style={{color:'rgb(0, 98, 51)', fontWeight:'bold', fontFamily: 'KnockoutFeatherWeight', marginBottom:0}}>OUR SLACK CHAT:</h2>
+                                <p style={{margin:'2px 0', fontFamily: 'KnockoutFeatherWeight', fontSize:22}}>spicy-green-book.slack.com</p>
+                            </div>
+                            <img src="https://www.honeybook.com/p.png?pid=5f0282b0a1f62a61eedd0881" />
+                        </div>
+                        {/* <View style={{width:'50%', height:'500px', marginLeft:20, fontSize:18}}>
+                            <View >
+                                <RichText render={content._body} isWeb={isWeb}/>
+                                {!isWeb && <Link href={'https://spicygreenbook.org/contact'} button={'button_green'} title="Go To Contact Form" />}
+                            </View>
+                        </View> */}
+                        <div style={{minWidth:'50%', maxWidth:'500px'}}>
+                            {isWeb && <View style={[styles.section]}>
+                               <View style={[styles.content]}>
+                                    {/* <Text style={[styles.text_header3]}>Contact Form</Text> */}
+                                   <div className="hb-p-5f0282b0a1f62a61eedd0881-2" style={{display: 'inline-block', width: '100%'}}/>
+                                </View>
+                            </View>} 
+                        </div>
+                            
+                    </div>
+                             
             </React.Fragment>
         )}
         </React.Fragment>
@@ -79,7 +96,10 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    heading: {
+        color:'green'
     }
-})
+});
 
 export default Page;
