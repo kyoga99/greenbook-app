@@ -5,6 +5,7 @@ import { Link } from "../components/Link";
 import { PageTitle } from "../components/PageTitle"; 
 import { RichText } from "../components/RichText"; 
 import { getStyles, Theme, getContent } from '../utils';
+import { ConnectContactLens } from 'aws-sdk';
 
 
 function Page(props) {
@@ -54,36 +55,32 @@ function Page(props) {
             </View>
         : (
             <React.Fragment>
-                <PageTitle title={content.page_title} style={{margin:'auto'}}/>
-                    <div style={{display:'flex', flexFlow:'row wrap'}}>
-                        <div style={{width:'50%', minWidth:280, margin:'0 auto'}}>
-                            <div style={{display:'flex', flexDirection:'column', alignItems:'flex-end'}}>
-                                <h2 style={{color:'rgb(0, 98, 51)', fontWeight:'bold', fontFamily: 'KnockoutFeatherWeight', marginBottom:0}}>QUESTIONS ABOUT PHOTOGRAPHY?</h2>
-                                <p style={{margin:'2px 0', fontFamily: 'KnockoutFeatherWeight', fontSize:22}}>photography@spicygreenbook.com</p>
-                                <h2 style={{color:'rgb(0, 98, 51)', fontWeight:'bold', fontFamily: 'KnockoutFeatherWeight', marginBottom:0}}>FIND AN ISSUE WITH THE WEBSITE?</h2>
-                                <p style={{margin:'2px 0', fontFamily: 'KnockoutFeatherWeight', fontSize:22}}>Open a new issue / bug report on our github page:</p>
-                                <p style={{margin:'2px 0', fontFamily: 'KnockoutFeatherWeight', fontSize:22}}>https://github.com/spicygreenbook-app</p>
-                                <h2 style={{color:'rgb(0, 98, 51)', fontWeight:'bold', fontFamily: 'KnockoutFeatherWeight', marginBottom:0}}>OUR SLACK CHAT:</h2>
-                                <p style={{margin:'2px 0', fontFamily: 'KnockoutFeatherWeight', fontSize:22}}>spicy-green-book.slack.com</p>
-                            </div>
-                            <img src="https://www.honeybook.com/p.png?pid=5f0282b0a1f62a61eedd0881" />
-                        </div>
-                        {/* <View style={{width:'50%', height:'500px', marginLeft:20, fontSize:18}}>
-                            <View >
-                                <RichText render={content._body} isWeb={isWeb}/>
-                                {!isWeb && <Link href={'https://spicygreenbook.org/contact'} button={'button_green'} title="Go To Contact Form" />}
+                <PageTitle title='Contact Us' style={{margin:'auto'}}/>
+                    <View style={styling.contact_outer_container}>
+                        <View style={styling.contact_container}>
+                            <View style={styling.contact_inner_container}>
+                                <View style={styling.contact_text_container}>
+                                    <Text style={styling.contact_heading_2}>QUESTIONS ABOUT PHOTOGRAPHY?</Text>
+                                    <a href="photography@spicygreenbook.com" target='_blank' style={{color:'rgb(0, 98, 51)', margin:'2px 0', fontSize:22}}>photography@spicygreenbook.com</a>
+                                    <Text style={styling.contact_heading_2}>FIND AN ISSUE WITH THE WEBSITE?</Text>
+                                    <Text style={styling.contact_details}>Open a new issue / bug report on our github page:</Text>
+                                    <a href="https://github.com/spicygreenbook/greenbook-app" target='_blank' style={{color:'rgb(0, 98, 51)', margin:'2px 0', fontSize:22}}>https://github.com/spicygreenbook-app</a>
+                                    <Text style={styling.contact_heading_2}>OUR SLACK CHAT:</Text>
+                                    <a href="spicy-green-book.slack.com" target='_blank' style={{color:'rgb(0, 98, 51)', margin:'2px 0', fontSize:22}}>spicy-green-book.slack.com</a>
+                                </View>
                             </View>
-                        </View> */}
-                        <div style={{minWidth:'50%', maxWidth:'500px'}}>
+                            <img src="./../images/IMG_2020.JPG" style={{display:'block', width:'68%', position:'relative', bottom:40, right:40}}/>
+                        </View>
+
+                        <View style={styling.contact_form_container}>
                             {isWeb && <View style={[styles.section]}>
                                <View style={[styles.content]}>
-                                    {/* <Text style={[styles.text_header3]}>Contact Form</Text> */}
                                    <div className="hb-p-5f0282b0a1f62a61eedd0881-2" style={{display: 'inline-block', width: '100%'}}/>
                                 </View>
                             </View>} 
-                        </div>
+                        </View>
                             
-                    </div>
+                    </View>
                              
             </React.Fragment>
         )}
@@ -91,14 +88,48 @@ function Page(props) {
     )
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+const styling = StyleSheet.create({
+    contact_heading_2: {
+        fontWeight:'bold', 
+        marginBottom:0,
+        marginTop:20,
+        fontFamily: 'KnockoutFeatherWeight',
+        fontSize: 22,
     },
-    heading: {
-        color:'green'
+    contact_details: {
+        margin:'2px 0', 
+        fontSize:22,
+        fontFamily: 'KnockoutFeatherWeight'
+    },
+    contact_outer_container: {
+        display:'flex', 
+        flexFlow:'row wrap', 
+        justifyContent:'center'
+    },
+    contact_container: {
+        width:'48%', 
+        minWidth:300, 
+        maxHeight:600, 
+        display:'flex', 
+        flexDirection:'column', 
+        alignItems:'flex-end'
+    },
+    contact_inner_container: {
+        height:300, 
+        boxShadow:'15px 5px 10px grey', 
+        paddingRight:20, 
+        marginTop:20, 
+        fontFamily: 'KnockoutFeatherWeight'
+    },
+    contact_text_container: {
+        display:'flex', 
+        flexDirection:'column', 
+        alignItems:'flex-end'
+    },
+    contact_form_container: {
+        minWidth:'50%', 
+        maxWidth:'500px', 
+        marginTop:-60
     }
 });
 
