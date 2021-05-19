@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import { useStateValue } from "../components/State";
-import {View, Text, StyleSheet, Button, Platform, ActivityIndicator} from 'react-native';
+import {View, Text, StyleSheet, Button, Platform, ActivityIndicator, Image, Linking} from 'react-native';
 import { Link } from "../components/Link";
 import { PageTitle } from "../components/PageTitle"; 
 import { RichText } from "../components/RichText"; 
 import { getStyles, Theme, getContent } from '../utils';
 import { ConnectContactLens } from 'aws-sdk';
-
+import ContactImage from "./../public/images/logo_nav_light.png"
 
 function Page(props) {
 
@@ -17,7 +17,12 @@ function Page(props) {
       })
     );
     //console.log('page props', props)
-
+    
+    // const toGithub {
+    //     Linking.openURL("https://github.com/spicygreenbook/greenbook-app").catch((err) =>
+    //   console.error('An error occurred', err),
+    // );
+    // }
     const [ pageLoading, setPageLoading ] = useState(props.content ? false: true);
     const [ content, setContent ] = useState(props.content || {});
 
@@ -61,15 +66,16 @@ function Page(props) {
                             <View style={styling.contact_inner_container}>
                                 <View style={styling.contact_text_container}>
                                     <Text style={styling.contact_heading_2}>QUESTIONS ABOUT PHOTOGRAPHY?</Text>
-                                    <a href="photography@spicygreenbook.com" target='_blank' style={{color:'rgb(0, 98, 51)', margin:'2px 0', fontSize:22}}>photography@spicygreenbook.com</a>
+                                    <Text style={styling.contact_links}>photography@spicygreenbook.com</Text>
                                     <Text style={styling.contact_heading_2}>FIND AN ISSUE WITH THE WEBSITE?</Text>
                                     <Text style={styling.contact_details}>Open a new issue / bug report on our github page:</Text>
-                                    <a href="https://github.com/spicygreenbook/greenbook-app" target='_blank' style={{color:'rgb(0, 98, 51)', margin:'2px 0', fontSize:22}}>https://github.com/spicygreenbook-app</a>
+                                    <Text onPress={() => Linking.openURL("https://github.com/spicygreenbook/greenbook-app")} style={[styling.contact_links, isWeb ? {cursor:'pointer'} : '']}>
+                                        https://github.com/spicygreenbook-app</Text>
                                     <Text style={styling.contact_heading_2}>OUR SLACK CHAT:</Text>
-                                    <a href="spicy-green-book.slack.com" target='_blank' style={{color:'rgb(0, 98, 51)', margin:'2px 0', fontSize:22}}>spicy-green-book.slack.com</a>
+                                    <Text style={styling.contact_links}>spicy-green-book.slack.com</Text>
                                 </View>
                             </View>
-                            <img src="./../images/IMG_2020.JPG" style={{display:'block', width:'68%', position:'relative', bottom:40, right:40}}/>
+                            <Image alt="strawberry waffles" source={isWeb ? { uri: '/images/contact_image.JPEG' } : require('../public/images/contact_image.png')} style={styling.contact_image}/>
                         </View>
 
                         <View style={styling.contact_form_container}>
@@ -77,7 +83,10 @@ function Page(props) {
                                <View style={[styles.content]}>
                                    <div className="hb-p-5f0282b0a1f62a61eedd0881-2" style={{display: 'inline-block', width: '100%'}}/>
                                 </View>
-                            </View>} 
+                            </View>}
+                            {!isWeb && <View style={[styles.section]}>
+                               <Button color="rgb(0, 98, 51)" title="Go To Contact Form" onPress={() => Linking.openURL("https://spicygreenbook.org/contact")}/>
+                            </View>}  
                         </View>
                             
                     </View>
@@ -97,13 +106,14 @@ const styling = StyleSheet.create({
         fontSize: 22,
     },
     contact_details: {
-        margin:'2px 0', 
+        margin:'2px 0px', 
         fontSize:22,
         fontFamily: 'KnockoutFeatherWeight'
     },
     contact_outer_container: {
-        display:'flex', 
-        flexFlow:'row wrap', 
+        display:'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap', 
         justifyContent:'center'
     },
     contact_container: {
@@ -116,7 +126,11 @@ const styling = StyleSheet.create({
     },
     contact_inner_container: {
         height:300, 
-        boxShadow:'15px 5px 10px grey', 
+        shadowColor: '#000',
+        shadowOffset: { width: 10, height: 10 },
+        shadowOpacity: 0.2,
+        shadowRadius: 8,
+        elevation: 1,
         paddingRight:20, 
         marginTop:20, 
         fontFamily: 'KnockoutFeatherWeight'
@@ -128,8 +142,32 @@ const styling = StyleSheet.create({
     },
     contact_form_container: {
         minWidth:'50%', 
-        maxWidth:'500px', 
+        maxWidth:'300px', 
         marginTop:-60
+    },
+    contact_links: {
+        color:'rgb(0, 98, 51)', 
+        margin:'2pt 0pt', 
+        fontSize:22, 
+        fontFamily: 'KnockoutFeatherWeight', 
+        textDecorationLine:'underline', 
+    },
+    contact_image: {
+        width:'70%', 
+        height:'42%', 
+        minHeight:'166.67px', 
+        minWidth:'250px', 
+        position:'relative', 
+        bottom:40, 
+        right:40,
+        marginBottom: 40,
+    },
+    contact_button: {
+        marginTop: 40,
+        backgroundColor: 'rgb(0, 98, 51)',
+        borderRadius: 8,
+        // color: '#fffff',
+        fontFamily: 'KnockoutFeatherWeight'
     }
 });
 
